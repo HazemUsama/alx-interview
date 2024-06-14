@@ -8,18 +8,23 @@ def minOperations(n):
 
     return: fewest number of operations needed
     """
-    ans: int = 0
-    while n % 2 == 0:
-        ans += 2
-        n /= 2
-    if n == 1:
-        return ans
+    if n < 4:
+        if n <= 1:
+            return 0
+        return n
 
+    div = []
     from math import sqrt
-    for i in range(2, int(sqrt(n) + 1)):
+    for i in range(2, int(sqrt(n)) + 1):
         if n % i == 0:
-            ans += i + int(n / i) + 1
-            print(i)
-            return ans
-
-    return int(ans + n)
+            div.append(i)
+            if i != n / i:
+                div.append(int(n / i))
+    ans = div[0]
+    curr = div[0]
+    for i in range(len(div)):
+        if div[i] % curr == 0 and curr != div[i]:
+            ans += div[i] / curr
+            curr = div[i]
+    ans += n / curr
+    return int(ans)
