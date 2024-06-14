@@ -20,6 +20,7 @@ def minOperations(n):
             div.append(i)
             if i != n / i:
                 div.append(int(n / i))
+    div = sorted(div)
     ans = div[0]
     curr = div[0]
     for i in range(len(div)):
