@@ -6,13 +6,12 @@ from collections import deque
 def canUnlockAll(boxes):
     """Return True if all boxes can be unlocked"""
     n = len(boxes)
-    queue = deque()
 
     if n == 0:
         return True
 
+    queue = deque([0])
     opened = {0}
-    queue.append(0)
 
     while (queue):
         box = boxes[queue.popleft()]
