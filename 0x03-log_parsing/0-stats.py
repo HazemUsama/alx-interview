@@ -1,7 +1,7 @@
 #!/usr/bin/python3
-import re
-import signal
 import sys
+import signal
+import re
 
 
 pattern = (
