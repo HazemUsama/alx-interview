@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 import sys
-import signal
 import re
 
 pattern = (
@@ -19,13 +18,6 @@ def statistics(total_size, status_codes):
     for key, value in status_codes.items():
         print('{}: {}'.format(key, value))
 
-
-def interrupt_handler(signum, frame):
-    statistics(total_size, status_codes)
-    sys.exit()
-
-
-signal.signal(signal.SIGINT, interrupt_handler)
 
 try:
     for line in sys.stdin:
