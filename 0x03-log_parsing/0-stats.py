@@ -1,5 +1,4 @@
-#!/usr/bin/python3
-import sys
+#!/usr/bin/python3 import sys
 import signal
 import re
 
@@ -9,7 +8,7 @@ pattern = (
     r'(?P<status>\d{3}) (?P<size>\d+)$'
 )
 cnt = 0
-sum = 0
+total_size = 0
 status_codes = {}
 
 
@@ -22,7 +21,7 @@ def statistics(total_size, status_codes):
 
 
 def interrupt_handler(signum, frame):
-    statistics(sum, status_codes)
+    statistics(total_size, status_codes)
     sys.exit()
 
 
@@ -36,16 +35,16 @@ try:
             status = int(match.group('status'))
             size = int(match.group('size'))
             cnt += 1
-            sum += size
+            total_size += size
             status_codes.setdefault(status, 0)
             status_codes[status] += 1
 
         if cnt == 10:
-            statistics(sum, status_codes)
-            sum = 0
+            statistics(total_size, status_codes)
+            total_size = 0
             cnt = 0
             status_codes = {}
 
 except KeyboardInterrupt:
-    statistics(sum, status_codes)
+    statistics(total_size, status_codes)
     sys.exit()
