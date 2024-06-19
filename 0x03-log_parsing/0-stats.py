@@ -3,7 +3,6 @@ import sys
 import signal
 import re
 
-
 pattern = (
     r'^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3} - \[(.*?)\] ".*?" '
     r'(?P<status>\d{3}) (?P<size>\d+)$'
@@ -27,7 +26,6 @@ def interrupt_handler(signum, frame):
 
 
 signal.signal(signal.SIGINT, interrupt_handler)
-
 
 try:
     for line in sys.stdin:
