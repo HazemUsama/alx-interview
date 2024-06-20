@@ -35,10 +35,10 @@ status_codes = {"200": 0,
 try:
     for line in sys.stdin:
         match = re.search(pattern, line)
+        cnt += 1
         if match:
             status = match.group('status')
             size = int(match.group('size'))
-            cnt += 1
             total_size += size
             if status in status_codes:
                 status_codes[status] += 1
@@ -49,4 +49,3 @@ try:
 
 finally:
     statistics(total_size, status_codes)
-    sys.exit()
