@@ -20,7 +20,10 @@ def statistics(total_size, status_codes):
             print('{}: {}'.format(key, value))
 
 
-pattern = r'(?P<status>\d{3}) (?P<size>\d+)$'
+pattern = (
+    r'^\d{1,3}(?:\.\d{1,3}){3} - \[\S+ \S+\] "GET /projects/260 HTTP/1\.1" '
+    r'(?P<status>\d{3}) (?P<size>\d+)$'
+)
 cnt = 0
 total_size = 0
 status_codes = {"200": 0,
@@ -35,13 +38,13 @@ status_codes = {"200": 0,
 try:
     for line in sys.stdin:
         match = re.search(pattern, line)
-        cnt += 1
         if match:
             status = match.group('status')
             size = int(match.group('size'))
             total_size += size
             if status in status_codes:
                 status_codes[status] += 1
+            cnt += 1
 
         if cnt == 10:
             statistics(total_size, status_codes)
