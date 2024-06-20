@@ -15,33 +15,38 @@ def statistics(total_size, status_codes):
     Returns: None
     """
     print('File size:', total_size)
-    status_codes = dict(sorted(status_codes.items(),
-                               key=lambda item: item[1], reverse=True))
-    for key, value in status_codes.items():
-        print('{}: {}'.format(key, value))
+    for key, value in sorted(status_codes.items()):
+        if value != 0:
+            print('{}: {}'.format(key, value))
 
 
 pattern = r'(?P<status>\d{3}) (?P<size>\d+)$'
 cnt = 0
 total_size = 0
-status_codes = {}
+status_codes = {"200": 0,
+                "301": 0,
+                "400": 0,
+                "401": 0,
+                "403": 0,
+                "404": 0,
+                "405": 0,
+                "500": 0}
+
 try:
     for line in sys.stdin:
         match = re.search(pattern, line)
         if match:
-            status = int(match.group('status'))
+            status = match.group('status')
             size = int(match.group('size'))
             cnt += 1
             total_size += size
-            status_codes.setdefault(status, 0)
-            status_codes[status] += 1
+            if status in status_codes:
+                status_codes[status] += 1
 
         if cnt == 10:
             statistics(total_size, status_codes)
-            total_size = 0
             cnt = 0
-            status_codes = {}
 
-except KeyboardInterrupt:
+finally:
     statistics(total_size, status_codes)
     sys.exit()
