@@ -34,6 +34,7 @@ status_codes = {"200": 0,
 
 try:
     for line in sys.stdin:
+        line.strip()
         match = re.search(pattern, line)
         if match:
             status = match.group('status')
