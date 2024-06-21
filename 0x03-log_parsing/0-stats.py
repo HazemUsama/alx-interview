@@ -20,7 +20,14 @@ def statistics(total_size, status_codes):
             print('{}: {}'.format(key, value))
 
 
-pattern = r'(?P<status>\d{3}) (?P<size>\d+)$'
+pt = (
+    r'\s*(\S+)\s*',
+    r'\s*\[(\d+\-\d+\-\d+ \d+:\d+:\d+\.\d+)\]',
+    r'\s*"([^"]*)"\s*',
+    r'\s*(?P<status>\S+)',
+    r'\s*(?P<size>\d+)'
+)
+pattern = '{}\\-{}{}{}{}\\s*'.format(pt[0], pt[1], pt[2], pt[3], pt[4])
 cnt = 0
 total_size = 0
 status_codes = {"200": 0,
@@ -35,7 +42,7 @@ status_codes = {"200": 0,
 try:
     for line in sys.stdin:
         line.strip()
-        match = re.search(pattern, line)
+        match = re.fullmatch(pattern, line)
         if match:
             status = match.group('status')
             size = int(match.group('size'))
