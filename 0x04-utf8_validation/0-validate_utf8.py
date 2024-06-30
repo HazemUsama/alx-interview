@@ -27,7 +27,7 @@ def validUTF8(data):
         if i + num_bytes > n:
             return False
         for j in range(1, num_bytes):
-            if data[i + j] >> 6 != 'b10':
+            if data[i + j] >> 6 != 0b10:
                 return False
         i += num_bytes
 
