@@ -8,7 +8,7 @@ def validUTF8(data):
     i = 0
 
     while i < n:
-        byte = data[i]
+        byte = data[i] & 0xFF
 
         if byte >> 7 == 0:
             num_bytes = 1
