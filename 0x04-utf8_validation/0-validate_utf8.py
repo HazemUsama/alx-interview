@@ -20,6 +20,8 @@ def validUTF8(data):
             num_bytes = 3
         elif byte >> 3 == 'b11110':
             num_bytes = 4
+        else:
+            return False
 
         if i + num_bytes > n:
             return False
