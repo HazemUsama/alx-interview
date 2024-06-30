@@ -10,9 +10,6 @@ def validUTF8(data):
     while i < n:
         byte = data[i]
 
-        if byte > 0xFF:     # Larger than One Byte
-            return False
-
         if byte >> 7 == 0:
             num_bytes = 1
         elif byte >> 5 == 0b110:
