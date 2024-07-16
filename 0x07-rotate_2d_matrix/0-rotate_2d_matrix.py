@@ -2,7 +2,7 @@
 """Rotate 2D Matrix Module"""
 
 
-def rotate_2d_matrix(matrix: list[list[int]]) -> None:
+def rotate_2d_matrix(matrix):
     """Rotate 2D Matrix Function"""
     n: int = len(matrix)
     for i in range(n):
