@@ -1,7 +1,14 @@
 #!/usr/bin/python3
+""" Module for calculating the minimum number of coins
+    needed to make a specific amount.
+"""
+
 
 
 def makeChange(coins, total):
+    """ Returns the minimum number of coins needed
+        to make the given total
+    """
     cache = {}
 
     def helper(total):
