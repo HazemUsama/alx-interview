@@ -13,7 +13,7 @@ def makeChange(coins, total):
 
     def helper(total):
         if total <= 0:
-            return -1
+            return 0
 
         ans = -1
         for coin in coins:
