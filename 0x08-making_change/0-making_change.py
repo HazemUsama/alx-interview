@@ -4,36 +4,18 @@
 """
 
 
-
 def makeChange(coins, total):
     """ Returns the minimum number of coins needed
         to make the given total
     """
-    cache = {}
+    dp = [0] + [total + 1] * total
 
-    def helper(total):
-        if total <= 0:
-            return 0
-
-        ans = -1
+    for i in range(1, total + 1):
         for coin in coins:
-            target = total - coin
-            if target == 0:
-                return 1
-            elif target < 0:
+            if i - coin < 0:
                 continue
-            if target not in cache:
-                cache[target] = helper(target)
+            dp[i] = min(dp[i - coin] + 1, dp[i])
 
-            if cache[target] == -1:
-                continue
-
-            if ans == -1:
-                ans = cache[target]
-            ans = min(ans, cache[target])
-
-        if ans > 0:
-            ans += 1
-        return ans
-
-    return helper(total)
+    if dp[total] > total:
+        return -1
+    return dp[total]
